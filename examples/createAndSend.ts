@@ -2,7 +2,6 @@ import fs from 'fs'
 import { createDocumentInputStub } from '@test/stubs/createDocument.stub'
 import { ATV } from '../dist/src'
 
-
 const IS_STG = process.env.IS_STG
 const USERNAME_TEST = process.env.USERNAME_TEST
 const PASSWORD_TEST = process.env.PASSWORD_TEST
@@ -44,7 +43,7 @@ async function main(): Promise<void> {
     username: USERNAME_TEST,
     password: PASSWORD_TEST
   })
-  const { command, extraData } = await atv.createDocumentCommand({
+  const { command /*, extraData */ } = await atv.createDocumentCommand({
     document: createDocumentInputStub,
     token: tokenData.accessToken,
     signatureOptions: {

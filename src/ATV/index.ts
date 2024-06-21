@@ -1,11 +1,21 @@
 import axios from 'axios'
 import { GetToken } from '../services/getToken/GetToken'
 import { GetTokenDto, GetTokenResponse } from '../services/getToken/types'
-import * as parser from 'fast-xml-parser'
+import { X2jOptions, XMLParser } from 'fast-xml-parser'
 import qs from 'querystring'
 import { ConfirmationMessageRaw } from '@src/types/facturaInterfaces'
-import { ATVOptions, ConfirmationMessage, Mode, SendConfirmationInput, SendResponse } from './types'
-import { Command, CreateAndSendDocumentResponse, CreateDocumentInput } from './useCases/createDocument/types'
+import {
+  ATVOptions,
+  ConfirmationMessage,
+  Mode,
+  SendConfirmationInput,
+  SendResponse
+} from './types'
+import {
+  Command,
+  CreateAndSendDocumentResponse,
+  CreateDocumentInput
+} from './useCases/createDocument/types'
 import { CreateDocumentCommand } from './useCases/createDocument'
 
 export class ATV {
@@ -19,7 +29,9 @@ export class ATV {
     return tokenService.execute(params)
   }
 
-  public createDocumentCommand(input: CreateDocumentInput): Promise<CreateAndSendDocumentResponse> {
+  public createDocumentCommand(
+    input: CreateDocumentInput
+  ): Promise<CreateAndSendDocumentResponse> {
     const createDocument = new CreateDocumentCommand(this)
     return createDocument.execute(input)
   }
@@ -43,7 +55,6 @@ export class ATV {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   public async sendConfirmation(input: SendConfirmationInput) {
     try {
       const response = await axios(input)
@@ -74,12 +85,16 @@ export class ATV {
   }
 
   private parseConfirmationMessage(xml: string): ConfirmationMessage {
-    const parsedXml: ConfirmationMessageRaw = parser.parse(xml, {
+    const options = {
       ignoreAttributes: false,
       tagValueProcessor: a => qs.unescape(a.replace(/(\r\n|\n|\r)/gm, '')),
       ignoreNameSpace: false,
       parseNodeValue: false
-    })
+    } as X2jOptions
+
+    const parser = new XMLParser(options)
+    const parsedXml: ConfirmationMessageRaw = parser.parse(xml)
+
     const msj = parsedXml.MensajeHacienda
     return {
       clave: msj.Clave,

@@ -13,9 +13,9 @@ const pem = fs.readFileSync(SOURCE_P12_URI, 'binary')
 
 async function main(): Promise<void> {
   const tokenObj = await getToken({
-    client_id: 'api-stag', // eslint-disable-line
-    client_secret: '', // eslint-disable-line
-    grant_type: 'password', // eslint-disable-line
+    client_id: 'api-stag',
+    client_secret: '',
+    grant_type: 'password',
     username: USERNAME_TEST,
     password: PASSWORD_TEST
   })

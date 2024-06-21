@@ -12,16 +12,19 @@ function decodeBase64(encodedStr: string): string {
 
 async function main(): Promise<any> {
   const token = await getToken({
-    client_id: 'api-stag', // eslint-disable-line
-    client_secret: '', // eslint-disable-line
-    grant_type: 'password', // eslint-disable-line
+    client_id: 'api-stag',
+    client_secret: '',
+    grant_type: 'password',
     username: USERNAME_TEST,
     password: PASSWORD_TEST
   })
-  const secondResponse = await sendToCustomURL(token.data.access_token, location).catch((err) => {
+  const secondResponse = await sendToCustomURL(
+    token.data.access_token,
+    location
+  ).catch(err => {
     const response = err.response || {}
     const header = response.headers || {}
-    const data = response.data = {}
+    const data = (response.data = {})
     console.log('status', response.status)
     console.log('data', data)
     console.log('x-error-cause', header['x-error-cause'])

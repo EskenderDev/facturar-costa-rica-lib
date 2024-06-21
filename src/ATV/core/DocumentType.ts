@@ -1,13 +1,13 @@
 import { DocumentNames } from './documentNames.types'
 
+type DocumentTypeValues = 'FE' | 'ND' | 'NC' | 'TE'
+
 const map: {[key: string]: DocumentTypeValues} = {
   FacturaElectronica: 'FE',
   FacturaElectronicaExportacion: 'FE',
   NotaCreditoElectronica: 'NC',
   NotaDebitoElectronica: 'NC'
 }
-
-type DocumentTypeValues = 'FE' | 'ND' | 'NC' | 'TE'
 
 export class DocumentType {
   value: DocumentTypeValues

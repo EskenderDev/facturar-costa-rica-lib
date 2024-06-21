@@ -32,9 +32,9 @@ async function main(): Promise<void> {
     const pem = fs.readFileSync(SOURCE_P12_URI, 'binary')
     const xml = fs.readFileSync(XML_TO_CONFIRM, 'utf-8')
     const token = await getToken({
-      client_id: 'api-stag', // eslint-disable-line
-      client_secret: '', // eslint-disable-line
-      grant_type: 'password', // eslint-disable-line
+      client_id: 'api-stag',
+      client_secret: '',
+      grant_type: 'password',
       username: USERNAME_TEST,
       password: PASSWORD_TEST
     })
@@ -52,11 +52,14 @@ async function main(): Promise<void> {
       }
     })
     if (data) {
-      const secondResponse = await getConfimation(token.data.access_token, data, 10000)
-        .catch(err => {
-          const response = err.response || {}
-          console.log('response', response)
-        })
+      const secondResponse = await getConfimation(
+        token.data.access_token,
+        data,
+        10000
+      ).catch(err => {
+        const response = err.response || {}
+        console.log('response', response)
+      })
       const XMLResponse = secondResponse.data['respuesta-xml']
       if (!XMLResponse) {
         const state = secondResponse.data['ind-estado']
