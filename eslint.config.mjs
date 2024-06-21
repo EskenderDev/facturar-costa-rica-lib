@@ -16,7 +16,10 @@ const compat = new FlatCompat({
 })
 
 export default [
-  ...compat.extends('standard'),
+  ...compat.extends('standard',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended'
+  ),
   oxlint.configs['flat/recommended'],
   {
     plugins: {
