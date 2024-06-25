@@ -48,4 +48,26 @@ export class GetToken {
   private initProps(mode: string): GetTokenInternalProps {
     return options[mode] || options.prod
   }
+
+  public async refreshToken(refreshToken: string): Promise<GetTokenResponse> {
+    const fetchResponse = await axios.post<GetTokenRawResponse>(this.props.serviceUrl, qs.stringify({
+      client_id: this.props.clientId,
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken
+    }), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
+    const data = fetchResponse.data
+    return {
+      accessToken: data.access_token,
+      expiresIn: data.expires_in,
+      refreshToken: data.refresh_token,
+      refreshExpiresIn: data.refresh_expires_in,
+      sessionState: data.session_state,
+      tokenType: data.token_type,
+      scope: data.scope
+    }
+  }
 }

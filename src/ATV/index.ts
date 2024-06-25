@@ -29,6 +29,11 @@ export class ATV {
     return tokenService.execute(params)
   }
 
+  public refreshToken(refreshtoken: string): Promise<GetTokenResponse> {
+    const tokenService = new GetToken(this)
+    return tokenService.refreshToken(refreshtoken)
+  }
+
   public createDocumentCommand(
     input: CreateDocumentInput
   ): Promise<CreateAndSendDocumentResponse> {
