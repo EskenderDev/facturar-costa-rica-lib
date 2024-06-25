@@ -16,7 +16,8 @@ const compat = new FlatCompat({
 })
 
 export default [
-  ...compat.extends('standard',
+  ...compat.extends(
+    'standard',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended'
   ),
@@ -48,5 +49,6 @@ export default [
         }
       ]
     }
-  }
+  },
+  { ignores: ['**/node_modules/', 'dist/**/*'] }
 ]
