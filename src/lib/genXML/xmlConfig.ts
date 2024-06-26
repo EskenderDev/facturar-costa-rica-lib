@@ -15,7 +15,8 @@ const ND_XML_SCHEMA_XSI = 'https://www.hacienda.go.cr/ATV/ComprobanteElectronico
 export const declaration = '<?xml version="1.0" encoding="utf-8"?>'
 
 export const defaultOptions = {
-  attrNodeName: 'attr'
+  ignoreAttributes: false,
+  attributeNamePrefix: '@_'
 }
 
 const COMMON_STRUCTURE = {
