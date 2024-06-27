@@ -20,6 +20,10 @@
     },
     "plugins": [
       { "transform": "typescript-transform-paths" }
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./@types"
     ]
   },
   "exclude": ["node_modules/**/*", "dist/**/*"]

@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { ATV } from '@src/ATV'
-import 'jest-xml-matcher'
 import { createDocumentInputStub } from '@test/stubs/createDocument.stub'
+import { vi } from 'vitest'
 const fakePem = fs.readFileSync(
   '__tests__/stubs/dummyKeys/client-identity.p12',
   'binary'
@@ -14,8 +14,8 @@ const expectXml = fs.readFileSync(
 
 describe('Create Document (Invoice)', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
-    jest.setSystemTime(new Date(2024, 3, 1, 0, 0, 0, 0))
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(2024, 3, 1, 0, 0, 0, 0))
   })
 
   it('should create document and generate a correct command', async () => {
@@ -34,7 +34,7 @@ describe('Create Document (Invoice)', () => {
     })
     expect(createdDoc.command.data).toMatchObject({
       clave: '50601042400020692014200100001010000000002100000001',
-      fecha: '2024-04-01T00:00:00.000Z',
+      fecha: '2024-04-01T06:00:00.000Z',
       emisor: { tipoIdentificacion: '01', numeroIdentificacion: '206920142' },
       receptor: { tipoIdentificacion: '02', numeroIdentificacion: '3102759157' }
     })

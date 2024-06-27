@@ -1,5 +1,6 @@
-import axios from 'axios'
 import qs from 'querystring'
+import { vi } from 'vitest'
+
 import {
   tokenStub,
   credentials,
@@ -11,8 +12,7 @@ import {
 } from '@test/stubs/token.stub'
 import { ATV } from '@src/ATV'
 import { GetToken } from '@src/services/getToken/GetToken'
-
-jest.mock('axios')
+import axios from 'axios'
 
 describe('Get Token', () => {
   let atv: ATV
@@ -21,11 +21,11 @@ describe('Get Token', () => {
   beforeEach(() => {
     atv = new ATV({}, 'stg')
     getToken = new GetToken(atv)
-    ;(axios.post as jest.Mock).mockResolvedValue(tokenStub)
+    vi.spyOn(axios, 'post').mockResolvedValue(tokenStub)
   })
 
   afterEach(() => {
-    jest.resetAllMocks()
+    vi.restoreAllMocks()
   })
 
   it('should return a valid token', async () => {
