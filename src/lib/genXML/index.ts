@@ -9,7 +9,9 @@ import sigXML from '@src/lib/genXML/sigXML/index'
 export const objToXML = (xmlStructure: string, obj: object): string => {
   const builder = new XMLBuilder(defaultOptions)
   const mainKey = Object.keys(obj)[0]
-  obj[mainKey].attr = xmlExtructures[xmlStructure]
+  const attribute = xmlExtructures[xmlStructure]
+  const attributesWithPrefix = addAttributesPrefix(attribute)
+  obj[mainKey] = { ...obj[mainKey], ...attributesWithPrefix }
   return declaration + builder.build(obj)
 }
 
@@ -42,4 +44,11 @@ export const xmlToJson = (xml: string): any => {
   } catch (err) {
     return null
   }
+}
+
+function addAttributesPrefix(attributes: { [key: string]: string }) {
+  return Object.entries(attributes).reduce((acc, [key, value]) => {
+    acc[`@_${key}`] = value
+    return acc
+  }, {} as { [key: string]: string })
 }
