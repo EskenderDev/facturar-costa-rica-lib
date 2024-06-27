@@ -3,7 +3,7 @@
 /* ======================================= */
 /* Util to import ATV xsd and get some info like enums */
 import fs from 'fs'
-import * as Parser from 'fast-xml-parser'
+import { XMLParser } from 'fast-xml-parser'
 
 const options = {
   ignoreAttributes: false,
@@ -14,8 +14,8 @@ const options = {
 }
 const sourceURI = process.env.XSD_SOURCE
 const xmlString = fs.readFileSync(sourceURI, 'utf8')
-
-const json = Parser.parse(xmlString, options)
+const parser = new XMLParser(options)
+const json = parser.parse(xmlString)
 const originalShema = json?.schema
 const parentElement = originalShema?.element
 
