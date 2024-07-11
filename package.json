@@ -4,7 +4,6 @@
   "description": "Librería (SDK) de Javascript/NodeJS para acceder al API de Administración Tributaria Virtual (ATV) del Ministerio de Hacienda.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
-  "type": "module",
   "directories": {
     "doc": "doc",
     "example": "examples",
@@ -15,7 +14,8 @@
     "test:watch": "vitest",
     "test:cov": "vitest --coverage",
     "dev": "dotenv -- nodemon -e ts,graphql -x pnpm lint & ts-node -r tsconfig-paths/register src/index.ts",
-    "build": "rimraf dist && tsc -p ./tsconfig-prod.json",
+    "clean": "rimraf dist",
+    "build": "pnpm clean && tsc -p ./tsconfig-prod.json",
     "lint": "npx oxlint && eslint --ignore-pattern .gitignore .",
     "test:createAndSend": "pnpm ts-node -r tsconfig-paths/register --require dotenv/config examples/createAndSend.ts"
   },
