@@ -4,19 +4,10 @@ import { GetTokenDto, GetTokenResponse } from '../services/getToken/types'
 import { X2jOptions, XMLParser } from 'fast-xml-parser'
 import qs from 'querystring'
 import { ConfirmationMessageRaw } from '@src/types/facturaInterfaces'
-import {
-  ATVOptions,
-  ConfirmationMessage,
-  Mode,
-  SendConfirmationInput,
-  SendResponse
-} from './types'
-import {
-  Command,
-  CreateAndSendDocumentResponse,
-  CreateDocumentInput
-} from './useCases/createDocument/types'
+import { ATVOptions, ConfirmationMessage, Mode, SendConfirmationInput, SendResponse } from './types'
+import { Command, CreateAndSendDocumentResponse } from './useCases/createDocument/types'
 import { CreateDocumentCommand } from './useCases/createDocument'
+import { CreateDocumentInput } from './core/CreateDocFactory'
 
 export class ATV {
   public readonly options: ATVOptions

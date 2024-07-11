@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { createDocumentInputStub } from '@test/stubs/createDocument.stub'
+import { createDocumentInputExample } from '@test/stubs/createDocument.data'
 import { ATV } from '../dist/src'
 
 const IS_STG = process.env.IS_STG
@@ -16,10 +16,10 @@ if (!SOURCE_P12_PASSPORT || !SOURCE_P12_URI) {
 
 const pem = fs.readFileSync(SOURCE_P12_URI, 'binary')
 
-console.log('requestStub consecutivo', createDocumentInputStub.consecutiveIdentifier)
+console.log('requestStub consecutivo', createDocumentInputExample.consecutiveIdentifier)
 
 // TODO: dynamic param --identifier 1 args[x]
-createDocumentInputStub.consecutiveIdentifier = '4'
+createDocumentInputExample.consecutiveIdentifier = '4'
 
 function getConfimation(atv: ATV, token: string, location: string, ms: number): Promise<any> {
   return new Promise((resolve, reject): any => {
@@ -43,8 +43,8 @@ async function main(): Promise<void> {
     username: USERNAME_TEST,
     password: PASSWORD_TEST
   })
-  const { command /*, extraData */ } = await atv.createDocumentCommand({
-    document: createDocumentInputStub,
+  const { command, extraData } = await atv.createDocumentCommand({
+    document: createDocumentInputExample,
     token: tokenData.accessToken,
     signatureOptions: {
       buffer: pem,
