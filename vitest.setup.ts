@@ -1,5 +1,5 @@
 import * as matchers from 'jest-xml-matcher'
-import { server } from './src/mocks/node'
+import { server } from './__tests__/mocks/node'
 
 expect.extend(matchers)
 // Registrar el matcher de XML
